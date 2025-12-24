@@ -22,7 +22,6 @@ func _on_wall_timer_timeout() -> void:
 	# Two walls will be instantiated, the top and the bottom
 	var walls = ["res://wall_15.tscn", "res://wall_35.tscn", "res://wall_55.tscn", "res://wall_75.tscn"]
 	var index = randi() % 3 # Generate random index
-	
 	# Options configuration for layout and height of each wall
 	var options = {
 		0: {
