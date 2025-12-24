@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://cyxm0jpatc40r"]
+
+[ext_resource type="Script" uid="uid://cyvmebg2v3oc" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://crt1xrd23evf2" path="res://player.tscn" id="1_ig7tw"]
+
+[sub_resource type="Resource" id="Resource_0xm2m"]
+metadata/__load_path__ = "res://wall.tscn"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
+size = Vector3(0.5, 0.5, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+material = SubResource("StandardMaterial3D_h2yge")
+size = Vector3(0.5, 0.5, 30)
+
+[sub_resource type="Theme" id="Theme_0xm2m"]
+default_font_size = 50
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
+size = Vector3(1, 12, 20)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0xm2m")
+wall_scene = SubResource("Resource_0xm2m")
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="CameraPivot" type="Marker3D" parent="Player"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.955, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8407458e-08, 0, 1.1074336)
+
+[node name="LightSource" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-3.779246e-08, 0.5024768, -0.8645907, 2.196396e-08, 0.8645907, 0.5024768, 1, 0, -4.371139e-08, -4.955, 4.9567585, 0)
+light_energy = 3.485
+
+[node name="Floor" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0xm2m")
+
+[node name="Message" type="Label" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.5
+offset_top = -18.0
+offset_right = 58.5
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You died!"
+
+[node name="WallTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="WallSpawnLocation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 6, 0)
+
+[node name="Despawner" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Despawner"]
+shape = SubResource("BoxShape3D_0xm2m")
+
+[connection signal="ded" from="Player" to="." method="_on_player_ded"]
+[connection signal="body_entered" from="Floor" to="Player" method="_on_floor_body_entered"]
+[connection signal="timeout" from="WallTimer" to="." method="_on_wall_timer_timeout"]
+[connection signal="body_entered" from="Despawner" to="." method="_on_despawner_body_entered"]
