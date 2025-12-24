@@ -59,6 +59,5 @@ func _on_wall_timer_timeout() -> void:
 	add_child(upper)
 	add_child(lower)
 
-
 func _on_despawner_body_entered(body: Node3D) -> void:
 	despawn.emit()
