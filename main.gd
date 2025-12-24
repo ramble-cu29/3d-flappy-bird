@@ -9,9 +9,6 @@ func _ready() -> void:
 	$UserInterface/Message.hide()
 	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
  
 
 func _on_player_ded():
@@ -53,11 +50,13 @@ func _on_wall_timer_timeout() -> void:
 	lower.teleport(Vector3(50.0, option["locations"][1], 0.0))
 	
 	# Initialize function, basically give it a velocity and run move_and_slide()
-	upper.initialize()
-	lower.initialize()
+	
+	var size = Vector3(1.0, 1.5, 20.0)
+	upper.initialize(size)
+	lower.initialize(size)
 	
 	add_child(upper)
 	add_child(lower)
 
-func _on_despawner_body_entered(body: Node3D) -> void:
+func _on_despawner_body_entered() -> void:
 	despawn.emit()

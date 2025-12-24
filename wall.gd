@@ -5,8 +5,9 @@ extends CharacterBody3D
 func _physics_process(delta):
 	move_and_slide()
 
-func initialize():
+func initialize(size: Vector3):
 	velocity = Vector3(speed,0,0)
+	
 	
 func teleport(point: Vector3) -> void:
 	global_position = point
