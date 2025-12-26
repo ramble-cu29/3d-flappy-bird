@@ -11,18 +11,7 @@ func _ready() -> void:
 	
 func _on_player_ded():
 	$UserInterface/Message.show()
-
-func initialize(wall_obj: CharacterBody3D, height: float, coord: float):
-	var mesh = wall_obj.get_node("MeshInstance3D")
-	var col_shape = wall_obj.get_node("Area3D/CollisionShape3D")
-	var size = Vector3(1.0, height, 20.0)
-	var pos = Vector3(50.0, coord, 0.0)
-
-	wall_obj.velocity = Vector3(speed, 0, 0)
-	wall_obj.global_position = pos
 	
-	mesh.mesh.size = size
-	col_shape.shape.size = size
 	
 func _on_wall_timer_timeout() -> void:
 	# Add upper and lower walls to scene tree
@@ -42,3 +31,7 @@ func _on_wall_timer_timeout() -> void:
 	
 func _on_despawner_body_entered() -> void:
 	despawn.emit()
+
+
+func _on_hit_box_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

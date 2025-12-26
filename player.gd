@@ -36,10 +36,6 @@ func die():
 	ded.emit()
 	queue_free()
 
-#func _on_floor_body_entered(body):
-#	print("Ball is kill")
-#	die()
-
-func _on_hit_box_body_entered():
+func _on_hit_box_body_entered(body: Node3D) -> void:
 	print("Ball is kill")
 	die()

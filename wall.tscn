@@ -9,16 +9,12 @@ resource_local_to_scene = true
 
 [node name="Wall" type="CharacterBody3D"]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("1_hrato")
 speed = -10
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="HitBox" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_xxgf6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_y4f30")
-
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

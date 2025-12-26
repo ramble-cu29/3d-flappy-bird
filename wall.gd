@@ -12,6 +12,7 @@ func initialize(height: float, coord: float):
 	velocity = Vector3(speed, 0, 0)
 	global_position = pos
 	
-	$MeshInstance3D.mesh.size = size
-	$Area3D/CollisionShape3D.shape.size = size
+	$Mesh.mesh.size = size
+	$HitBox.shape.size = size
 	
+	print($HitBox.shape.size)

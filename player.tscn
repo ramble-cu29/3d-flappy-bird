@@ -22,11 +22,10 @@ script = ExtResource("1_4flbx")
 mesh = SubResource("SphereMesh_sh265")
 
 [node name="HitBox" type="Area3D" parent="."]
-collision_layer = 3
+collision_layer = 0
 collision_mask = 3
 
-[node name="Shape" type="CollisionShape3D" parent="HitBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0008890629, 0, 0)
+[node name="HitBoxShape" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("SphereShape3D_4flbx")
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
