@@ -67,6 +67,17 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "You died!"
 
+[node name="ScoreCounter" type="Label" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 69.0
+grow_horizontal = 2
+text = "0"
+
 [node name="WallTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true

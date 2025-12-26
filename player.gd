@@ -36,11 +36,10 @@ func die():
 	ded.emit()
 	queue_free()
 
-func _on_floor_body_entered(body):
+#func _on_floor_body_entered(body):
+#	print("Ball is kill")
+#	die()
+
+func _on_hit_box_body_entered():
 	print("Ball is kill")
 	die()
-
-
-	
-	
-	

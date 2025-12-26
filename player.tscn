@@ -21,6 +21,12 @@ script = ExtResource("1_4flbx")
 [node name="Skin" type="MeshInstance3D" parent="Pivot"]
 mesh = SubResource("SphereMesh_sh265")
 
-[node name="HitBox" type="CollisionShape3D" parent="."]
+[node name="HitBox" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Shape" type="CollisionShape3D" parent="HitBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0008890629, 0, 0)
 shape = SubResource("SphereShape3D_4flbx")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

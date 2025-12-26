@@ -5,7 +5,6 @@ signal despawn
 @export var speed = -5
 var wall = preload("res://wall.tscn")
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$UserInterface/Message.hide()
@@ -31,13 +30,15 @@ func _on_wall_timer_timeout() -> void:
 	add_child(upper)
 	var height_u = 1.0
 	var coord_u = 12.0
-	initialize(upper, height_u, coord_u)
+	#initialize(upper, height_u, coord_u)
+	upper.initialize(height_u, coord_u)
 
 	var lower = wall.instantiate()
 	add_child(lower)
 	var height_l = 4.0 
 	var coord_l = 4.0
-	initialize(lower, height_l, coord_l)
-		
+	#initialize(lower, height_l, coord_l)
+	lower.initialize(height_l, coord_l)
+	
 func _on_despawner_body_entered() -> void:
 	despawn.emit()
