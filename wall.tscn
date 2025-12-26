@@ -5,6 +5,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_xxgf6"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y4f30"]
+resource_local_to_scene = true
 
 [node name="Wall" type="CharacterBody3D"]
 collision_layer = 2
