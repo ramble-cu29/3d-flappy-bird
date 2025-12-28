@@ -2,64 +2,34 @@ extends Node
 
 signal despawn
 
-@export var wall_scene: PackedScene
-
+@export var speed = -5
+var wall = preload("res://wall.tscn")
+var score_wall = preload("res://score_wall.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$UserInterface/Message.hide()
 	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
- 
-
 func _on_player_ded():
 	$UserInterface/Message.show()
-
-
+	
 func _on_wall_timer_timeout() -> void:
-	# Two walls will be instantiated, the top and the bottom
-	var walls = ["res://wall_15.tscn", "res://wall_35.tscn", "res://wall_55.tscn", "res://wall_75.tscn"]
-	var index = randi() % 3 # Generate random index
-	
-	# Options configuration for layout and height of each wall
-	var options = {
-		0: {
-			"locations": [11.25, 3.75],
-			"walls": [0, 3]
-		},
-		1: {
-			"locations": [10.25, 2.75],
-			"walls": [1, 2]
-		},
-		2: {
-			"locations": [2.75, 10.25],
-			"walls": [2, 1]
-		},
-		3: {
-			"locations": [3.75, 11.25],
-			"walls": [3, 0]
-		}
-	}
-	
-	var option = options[index]
-	
 	# Add upper and lower walls to scene tree
-	var upper = load(walls[option["walls"][0]]).instantiate()
-	var lower = load(walls[option["walls"][1]]).instantiate()
-	
-	# Run wall teleport function to move to initial position
-	upper.teleport(Vector3(50.0, option["locations"][0], 0.0))
-	lower.teleport(Vector3(50.0, option["locations"][1], 0.0))
-	
-	# Initialize function, basically give it a velocity and run move_and_slide()
-	upper.initialize()
-	lower.initialize()
-	
+	var upper = wall.instantiate()
 	add_child(upper)
+	var height_u = 1.0
+	var coord_u = 12.0
+	upper.initialize(height_u, coord_u)
+
+	var lower = wall.instantiate()
 	add_child(lower)
+	var height_l = 4.0 
+	var coord_l = 4.0
+	lower.initialize(height_l, coord_l)
 
-
-func _on_despawner_body_entered(body: Node3D) -> void:
+	var scorer = score_wall.instantiate()
+	scorer.global_position = Vector3(50.0, 0.0, 0.0)
+	scorer.velocity = Vector3(-10, 0.0, 0.0)
+	add_child(scorer)
+	
+func _on_despawner_body_entered() -> void:
 	despawn.emit()

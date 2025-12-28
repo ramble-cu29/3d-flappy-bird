@@ -5,8 +5,12 @@ extends CharacterBody3D
 func _physics_process(delta):
 	move_and_slide()
 
-func initialize():
-	velocity = Vector3(speed,0,0)
+func initialize(height: float, coord: float):
+	var size = Vector3(1.0, height, 20.0)
+	var pos = Vector3(50.0, coord, 0.0)
+
+	velocity = Vector3(speed, 0, 0)
+	global_position = pos
 	
-func teleport(point: Vector3) -> void:
-	global_position = point
+	$Mesh.mesh.size = size
+	$HitBox.shape.size = size

@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
+
 [input]
 
 move_left={
@@ -44,3 +48,4 @@ jump={
 
 3d_physics/layer_1="floor"
 3d_physics/layer_2="walls"
+3d_physics/layer_3="score_walls"
