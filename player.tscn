@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://crt1xrd23evf2"]
+[gd_scene load_steps=6 format=3 uid="uid://crt1xrd23evf2"]
 
 [ext_resource type="Script" uid="uid://bkhujlfyamf1a" path="res://player.gd" id="1_4flbx"]
 
@@ -13,6 +13,9 @@ height = 0.5
 [sub_resource type="SphereShape3D" id="SphereShape3D_4flbx"]
 radius = 0.25
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_onrkg"]
+radius = 0.25
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4flbx")
 
@@ -23,9 +26,16 @@ mesh = SubResource("SphereMesh_sh265")
 
 [node name="HitBox" type="Area3D" parent="."]
 collision_layer = 0
-collision_mask = 3
+collision_mask = 7
 
 [node name="HitBoxShape" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("SphereShape3D_4flbx")
+
+[node name="ScoreHitBox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="ScoreHitBoxShape" type="CollisionShape3D" parent="ScoreHitBox"]
+shape = SubResource("SphereShape3D_onrkg")
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

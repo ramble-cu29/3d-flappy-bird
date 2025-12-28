@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://4j8scuoqwtxx"]
+
+[ext_resource type="Script" uid="uid://c45mkm5enolb" path="res://score_wall.gd" id="1_kpyfl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ubcbl"]
+size = Vector3(1, 100, 100)
+
+[node name="ScoreWall" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_kpyfl")
+
+[node name="ScoreWallShape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ubcbl")

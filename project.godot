@@ -48,3 +48,4 @@ jump={
 
 3d_physics/layer_1="floor"
 3d_physics/layer_2="walls"
+3d_physics/layer_3="score_walls"
