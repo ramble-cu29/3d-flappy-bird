@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyxm0jpatc40r"]
+[gd_scene load_steps=9 format=3 uid="uid://cyxm0jpatc40r"]
 
 [ext_resource type="Script" uid="uid://cyvmebg2v3oc" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://crt1xrd23evf2" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://c8856orp2sqsm" path="res://score_counter.gd" id="3_h2yge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 size = Vector3(0.5, 0.5, 20)
@@ -77,6 +78,7 @@ offset_right = 20.0
 offset_bottom = 69.0
 grow_horizontal = 2
 text = "0"
+script = ExtResource("3_h2yge")
 
 [node name="WallTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -92,5 +94,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 shape = SubResource("BoxShape3D_0xm2m")
 
 [connection signal="ded" from="Player" to="." method="_on_player_ded"]
+[connection signal="incr" from="Player" to="UserInterface/ScoreCounter" method="_on_player_incr"]
 [connection signal="timeout" from="WallTimer" to="." method="_on_wall_timer_timeout"]
 [connection signal="body_entered" from="Despawner" to="." method="_on_despawner_body_entered"]

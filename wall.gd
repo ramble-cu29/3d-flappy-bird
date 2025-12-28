@@ -14,5 +14,3 @@ func initialize(height: float, coord: float):
 	
 	$Mesh.mesh.size = size
 	$HitBox.shape.size = size
-	
-	print($HitBox.shape.size)

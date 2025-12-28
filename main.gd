@@ -5,7 +5,6 @@ signal despawn
 @export var speed = -5
 var wall = preload("res://wall.tscn")
 var score_wall = preload("res://score_wall.tscn")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$UserInterface/Message.hide()

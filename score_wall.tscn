@@ -5,7 +5,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ubcbl"]
 size = Vector3(1, 100, 100)
 
-[node name="ScoreWall" type="CharacterBody3D"]
+[node name="ScoreWall" type="CharacterBody3D" groups=["score_walls"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_kpyfl")
