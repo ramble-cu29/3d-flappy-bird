@@ -53,32 +53,87 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_0xm2m")
 
-[node name="Message" type="Label" parent="UserInterface"]
+[node name="Score" type="Control" parent="UserInterface"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreCounter" type="Label" parent="UserInterface/Score"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 1072.0
+offset_right = 1112.0
+offset_bottom = 69.0
+grow_horizontal = 0
+text = "0"
+script = ExtResource("3_h2yge")
+
+[node name="ScoreLabel" type="Label" parent="UserInterface/Score"]
+layout_mode = 0
+offset_left = 926.0
+offset_top = -2.0
+offset_right = 1073.0
+offset_bottom = 67.0
+text = "Score:"
+
+[node name="Replay" type="Control" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface/Replay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21950102, 0.21950102, 0.21950093, 1)
+
+[node name="Message" type="Label" parent="UserInterface/Replay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -58.5
-offset_top = -18.0
-offset_right = 58.5
-offset_bottom = 18.0
+offset_left = -112.0
+offset_top = -34.5
+offset_right = 112.0
+offset_bottom = 34.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "You died!"
 
-[node name="ScoreCounter" type="Label" parent="UserInterface"]
+[node name="Button" type="Button" parent="UserInterface/Replay"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 69.0
+anchors_preset = -1
+offset_left = 466.0
+offset_top = 412.0
+offset_right = 695.0
+offset_bottom = 489.0
 grow_horizontal = 2
+text = "Again?"
+
+[node name="HighScoreText" type="Label" parent="UserInterface/Replay"]
+layout_mode = 1
+offset_left = 19.0
+offset_right = 332.0
+offset_bottom = 69.0
+text = "High Score:"
+
+[node name="HighScoreNumber" type="Label" parent="UserInterface/Replay"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 2.0
+offset_right = 360.0
+offset_bottom = 71.0
 text = "0"
-script = ExtResource("3_h2yge")
 
 [node name="WallTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -94,6 +149,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 shape = SubResource("BoxShape3D_0xm2m")
 
 [connection signal="ded" from="Player" to="." method="_on_player_ded"]
-[connection signal="incr" from="Player" to="UserInterface/ScoreCounter" method="_on_player_incr"]
+[connection signal="ded" from="Player" to="UserInterface/Score/ScoreCounter" method="_on_player_ded"]
+[connection signal="incr" from="Player" to="UserInterface/Score/ScoreCounter" method="_on_player_incr"]
+[connection signal="pressed" from="UserInterface/Replay/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="WallTimer" to="." method="_on_wall_timer_timeout"]
 [connection signal="body_entered" from="Despawner" to="." method="_on_despawner_body_entered"]

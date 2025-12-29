@@ -26,7 +26,7 @@ func _physics_process(delta):
 		target_velocity.y = target_velocity.y + (gravity * delta)
 		
 	# Jumping
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_pressed("jump"):
 		target_velocity.y = jump_impulse
 		
 	# Moving the Character
@@ -35,8 +35,7 @@ func _physics_process(delta):
 
 func die():
 	ded.emit()
-	queue_free()
-
+	
 func increment():
 	incr.emit()
 
@@ -46,4 +45,5 @@ func _on_hit_box_body_entered(body: Node3D) -> void:
 		increment()
 	else:
 		print("Ball is kill")
+		target_velocity = Vector3.ZERO
 		die()
