@@ -21,7 +21,7 @@ func _on_player_ded():
 	replay.show()
 	
 	# Reparent Score node so it's visible in the Replay node
-	$UserInterface/Score.reparent($UserInterface/Replay)
+	$UserInterface/Score.move_to_front()
 	
 	# 3. Delete all instances of walls and score_walls
 	get_tree().call_group("walls", "queue_free")
@@ -70,9 +70,6 @@ func _on_button_pressed() -> void:
 
 	# 3. Start WallTimer
 	$WallTimer.start()
-	
-	# Move Score node back to UserInterface
-	$UserInterface/Replay/Score.reparent($UserInterface)
 	
 	# 4. Set ScoreCounter to 0
 	$UserInterface/Score/ScoreCounter.text = str(0)
