@@ -1,8 +1,8 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1767491149
+::res://::1767847559
 icon.svg::CompressedTexture2D::6091203122919346623::1767491115::1767491115::1::::<><><>0<>0<>8007fa56b6279303b6db51f2ddc9f682<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
-main.gd::GDScript::191219451696210726::1767491115::0::1::::<>Node<><>0<>0<><>::
-main.tscn::PackedScene::6505628047710895063::1767491115::0::1::::<><><>0<>0<><>::uid://cyvmebg2v3oc::::res://main.gd<>uid://crt1xrd23evf2::::res://player.tscn
+main.gd::GDScript::191219451696210726::1767492730::0::1::::<>Node<><>0<>0<><>::
+main.tscn::PackedScene::6505628047710895063::1767512731::0::1::::<><><>0<>0<><>::uid://cyvmebg2v3oc::::res://main.gd<>uid://crt1xrd23evf2::::res://player.tscn<>res://score_counter.gd
 player.gd::GDScript::3103990762924118824::1767491115::0::1::::<>CharacterBody3D<><>0<>0<><>::
 player.tscn::PackedScene::6006895500427350297::1767491115::0::1::::<><><>0<>0<><>::uid://bkhujlfyamf1a::::res://player.gd
 score_counter.gd::GDScript::-1::1767491115::0::1::::<>Label<><>0<>0<><>::

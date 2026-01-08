@@ -9,6 +9,15 @@ signal incr
 
 var target_velocity = Vector3.ZERO
 
+func _process(delta):
+	if Input.is_action_pressed("move_left"):
+		$Marker3D.position = Vector3(-5, 0, -1)
+	elif Input.is_action_pressed("move_right"):
+		$Marker3D.position = Vector3(-5, 0, 1)
+	else:
+		$Marker3D.position = Vector3(-5, 0, 0)
+	
+	
 func _physics_process(delta):
 	var direction = Vector3.ZERO
 	
@@ -32,6 +41,7 @@ func _physics_process(delta):
 	# Moving the Character
 	velocity = target_velocity
 	move_and_slide()
+	print($Marker3D.position)
 
 func die():
 	ded.emit()

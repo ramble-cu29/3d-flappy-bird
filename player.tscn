@@ -38,4 +38,9 @@ collision_mask = 4
 [node name="ScoreHitBoxShape" type="CollisionShape3D" parent="ScoreHitBox"]
 shape = SubResource("SphereShape3D_onrkg")
 
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Marker3D"]
+
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

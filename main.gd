@@ -20,7 +20,6 @@ func _on_player_ded():
 	# 2. Show Replay UI so that it's hiding everything
 	replay.show()
 	
-	# Reparent Score node so it's visible in the Replay node
 	$UserInterface/Score.move_to_front()
 	
 	# 3. Delete all instances of walls and score_walls
@@ -28,9 +27,9 @@ func _on_player_ded():
 	get_tree().call_group("score_walls", "queue_free")
 	
 	# 4. Update high score if necessary
-	if high_score > score:
+	if high_score < score:
 		print("High score achieved")
-		high_score = score
+		$UserInterface/Replay/HighScoreNumber.text = str(score)
 	
 	# 5. Move Player back to starting position and turn off gravity
 	$Player.global_position = Vector3(0,4,0)
