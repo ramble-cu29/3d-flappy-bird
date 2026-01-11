@@ -8,14 +8,21 @@ signal incr
 @export var speed = 5 # Horizontal speed
 
 var target_velocity = Vector3.ZERO
+var swing_time = 0.1
+enum States {LEFT, RIGHT, CENTER}
+
 
 func _process(delta):
+	
+	#var state: States = States.CENTER
+	var tween = create_tween()
+	
 	if Input.is_action_pressed("move_left"):
-		$Marker3D.position = Vector3(-5, 0, -1)
+		tween.tween_property($CameraPivot, "position", Vector3(-5.0, 0.0, 1.0), swing_time)
 	elif Input.is_action_pressed("move_right"):
-		$Marker3D.position = Vector3(-5, 0, 1)
+		tween.tween_property($CameraPivot, "position", Vector3(-5.0, 0.0, -1.0), swing_time)
 	else:
-		$Marker3D.position = Vector3(-5, 0, 0)
+		tween.tween_property($CameraPivot, "position", Vector3(-5.0, 0.0, 0.0), swing_time)
 	
 	
 func _physics_process(delta):
@@ -41,7 +48,7 @@ func _physics_process(delta):
 	# Moving the Character
 	velocity = target_velocity
 	move_and_slide()
-	print($Marker3D.position)
+	print($CameraPivot.position)
 
 func die():
 	ded.emit()

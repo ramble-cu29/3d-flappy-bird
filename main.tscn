@@ -24,7 +24,8 @@ size = Vector3(1, 12, 20)
 script = ExtResource("1_0xm2m")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+gravity = 0
 
 [node name="LightSource" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-3.779246e-08, 0.5024768, -0.8645907, 2.196396e-08, 0.8645907, 0.5024768, 1, 0, -4.371139e-08, -4.955, 4.9567585, 0)
