@@ -12,7 +12,6 @@ var swing_time = 0.2
 var horiz_swing_dist = 0.5
 var vert_swing_dist = 1.0
 
-
 func tween_animation(tween: Tween, pos: Vector3):
 	tween.tween_property($CameraPivot, "position", pos, swing_time)
 

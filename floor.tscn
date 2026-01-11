@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://cl11epjvdlyad"]
+
+[ext_resource type="Texture2D" uid="uid://b6g3d74gaale6" path="res://textures/gravelly_sand_diff_4k.png" id="1_wd3ws"]
+[ext_resource type="Texture2D" uid="uid://dvqh5cmnkomcc" path="res://textures/gravelly_sand_nor_gl_4k.png" id="2_qn07e"]
+[ext_resource type="Texture2D" uid="uid://bu7sntn25qygy" path="res://textures/gravelly_sand_rough_4k.png" id="3_dgmes"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryoud"]
+albedo_texture = ExtResource("1_wd3ws")
+roughness_texture = ExtResource("3_dgmes")
+normal_enabled = true
+normal_texture = ExtResource("2_qn07e")
+uv1_scale = Vector3(1.5, 1.5, 1.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oj3tl"]
+material = SubResource("StandardMaterial3D_ryoud")
+size = Vector2(30, 30)
+
+[node name="Floor" type="StaticBody3D"]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
+mesh = SubResource("PlaneMesh_oj3tl")

@@ -1,10 +1,16 @@
 extends Node
 
+# BOOT DIMENSIONS:
+# L 0.3048m
+# W 0.1524m
+# H 0.1524m
+
 signal despawn
 
-@export var speed = -5
+@export var speed = -10
 var wall = preload("res://wall.tscn")
 var score_wall = preload("res://score_wall.tscn")
+var floor = preload("res://floor.tscn")
 
 func _ready() -> void:
 	$UserInterface/Replay.hide()
@@ -53,7 +59,7 @@ func _on_wall_timer_timeout() -> void:
 	# Add the Score wall to the scene tree
 	var scorer = score_wall.instantiate()
 	scorer.global_position = Vector3(50.0, 0.0, 0.0)
-	scorer.velocity = Vector3(-10, 0.0, 0.0)
+	scorer.velocity = Vector3(speed, 0.0, 0.0)
 	add_child(scorer)
 	
 func _on_despawner_body_entered() -> void:

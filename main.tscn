@@ -30,12 +30,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
 transform = Transform3D(-3.779246e-08, 0.5024768, -0.8645907, 2.196396e-08, 0.8645907, 0.5024768, 1, 0, -4.371139e-08, -4.955, 4.9567585, 0)
 light_energy = 3.485
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="DeathFloor" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathFloor"]
 shape = SubResource("BoxShape3D_ig7tw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DeathFloor"]
 mesh = SubResource("BoxMesh_ig7tw")
 
 [node name="UserInterface" type="Control" parent="."]
