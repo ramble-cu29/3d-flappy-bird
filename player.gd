@@ -9,17 +9,14 @@ signal incr
 
 var target_velocity = Vector3.ZERO
 var swing_time = 0.1
-var horiz_swing_dist = 0.5
+var horiz_swing_dist = 1.0
 var vert_swing_dist = 1.0
-
-func tween_animation(tween: Tween, pos: Vector3, time: float):
-	tween.tween_property($CameraPivot, "position", pos, time)
 
 func _process(delta):
 	
-	#var state: States = States.CENTER
 	var tween = create_tween()
 	
+	# Depending on what key was pressed, edit the tween to swing the camera left or right	
 	if Input.is_action_pressed("move_left"):
 		#if velocity.y < 0:
 		#	tween_animation(tween, Vector3(-5.0, vert_swing_dist, horiz_swing_dist))
@@ -27,18 +24,22 @@ func _process(delta):
 		#	tween_animation(tween, Vector3(-5.0, -vert_swing_dist, horiz_swing_dist))
 		#else:
 		#	tween_animation(tween, Vector3(-5.0, 0.0, horiz_swing_dist))
-		tween_animation(tween, Vector3(-5.0, 0.0, horiz_swing_dist), swing_time)
+		#tween.parallel().tween_property($CameraPivot, "position", Vector3(-3.0, 0.0, horiz_swing_dist), swing_time)
+		tween.tween_property($Pivot, "global_rotation", Vector3(0.0, 45.0, 0.0), 0.1)
+		
 	elif Input.is_action_pressed("move_right"):
+		
 		#if velocity.y < 0:
 		#	tween_animation(tween, Vector3(-5.0, vert_swing_dist, -horiz_swing_dist))
 		#elif velocity.y > 0:
 		#	tween_animation(tween, Vector3(-5.0, -vert_swing_dist, -horiz_swing_dist))
 		#else:	
 		#	tween_animation(tween, Vector3(-5.0, 0.0, -horiz_swing_dist))
-		tween_animation(tween, Vector3(-5.0, 0.0, -horiz_swing_dist), swing_time)
+		#tween.parallel().tween_property($CameraPivot, "position", Vector3(-3.0, 0.0, -horiz_swing_dist), swing_time)
+		tween.tween_property($Pivot, "global_rotation", Vector3(0.0, -45.0, 0.0), 0.1)
 	else:
-		tween_animation(tween, Vector3(-5.0, 0.0, 0.0), 0.1)
-	
+		#tween.parallel().tween_property($CameraPivot, "position", Vector3(-3.0, 0.0, 0.0), swing_time)
+		tween.tween_property($Pivot, "global_rotation", Vector3(0.0, 0.0, 0.0), 0.1)
 	
 func _physics_process(delta):
 	var direction = Vector3.ZERO
@@ -63,7 +64,6 @@ func _physics_process(delta):
 	# Moving the Character
 	velocity = target_velocity
 	move_and_slide()
-	print($CameraPivot.position)
 
 func die():
 	ded.emit()

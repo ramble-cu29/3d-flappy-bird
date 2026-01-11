@@ -1,20 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://crt1xrd23evf2"]
+[gd_scene load_steps=12 format=3 uid="uid://crt1xrd23evf2"]
 
 [ext_resource type="Script" uid="uid://bkhujlfyamf1a" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://dcd0qq8eiq1y8" path="res://textures/a6bwvte5q2e91-1667084409.png" id="2_onrkg"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4flbx"]
-albedo_color = Color(0.2229456, 0.63774294, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3pqv"]
+albedo_texture = ExtResource("2_onrkg")
 
-[sub_resource type="SphereMesh" id="SphereMesh_sh265"]
-material = SubResource("StandardMaterial3D_4flbx")
-radius = 0.25
-height = 0.5
+[sub_resource type="BoxMesh" id="BoxMesh_4flbx"]
+material = SubResource("StandardMaterial3D_i3pqv")
+size = Vector3(0.305, 0.152, 0.152)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_4flbx"]
-radius = 0.25
+[sub_resource type="BoxShape3D" id="BoxShape3D_4flbx"]
+size = Vector3(0.305, 0.152, 0.152)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_onrkg"]
-radius = 0.25
+[sub_resource type="BoxShape3D" id="BoxShape3D_onrkg"]
+size = Vector3(0.305, 0.152, 0.152)
 
 [sub_resource type="Animation" id="Animation_4flbx"]
 length = 0.001
@@ -29,36 +29,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(-5, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_onrkg"]
-resource_name = "camera_move"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-5, 0, 0), Vector3(-5, 0, -1)]
-}
-
-[sub_resource type="Animation" id="Animation_i3pqv"]
-resource_name = "camera_swing_left"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-5, 0, 0), Vector3(-5, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_hqtel"]
@@ -76,6 +46,36 @@ tracks/0/keys = {
 "values": [Vector3(-5, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_i3pqv"]
+resource_name = "camera_swing_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-5, 0, 0), Vector3(-5, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_onrkg"]
+resource_name = "camera_move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-5, 0, 0), Vector3(-5, 0, -1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i3pqv"]
 _data = {
 &"RESET": SubResource("Animation_4flbx"),
@@ -90,21 +90,21 @@ script = ExtResource("1_4flbx")
 [node name="Pivot" type="Node3D" parent="."]
 
 [node name="Skin" type="MeshInstance3D" parent="Pivot"]
-mesh = SubResource("SphereMesh_sh265")
+mesh = SubResource("BoxMesh_4flbx")
 
-[node name="HitBox" type="Area3D" parent="."]
+[node name="HitBox" type="Area3D" parent="Pivot"]
 collision_layer = 0
 collision_mask = 7
 
-[node name="HitBoxShape" type="CollisionShape3D" parent="HitBox"]
-shape = SubResource("SphereShape3D_4flbx")
+[node name="HitBoxShape" type="CollisionShape3D" parent="Pivot/HitBox"]
+shape = SubResource("BoxShape3D_4flbx")
 
-[node name="ScoreHitBox" type="Area3D" parent="."]
+[node name="ScoreHitBox" type="Area3D" parent="Pivot/HitBox"]
 collision_layer = 0
 collision_mask = 4
 
-[node name="ScoreHitBoxShape" type="CollisionShape3D" parent="ScoreHitBox"]
-shape = SubResource("SphereShape3D_onrkg")
+[node name="ScoreHitBoxShape" type="CollisionShape3D" parent="Pivot/HitBox/ScoreHitBox"]
+shape = SubResource("BoxShape3D_onrkg")
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5, 0, 0)
@@ -116,4 +116,4 @@ libraries = {
 &"": SubResource("AnimationLibrary_i3pqv")
 }
 
-[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_entered" from="Pivot/HitBox" to="." method="_on_hit_box_body_entered"]

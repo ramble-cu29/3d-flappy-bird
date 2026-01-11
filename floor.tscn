@@ -14,7 +14,7 @@ uv1_scale = Vector3(1.5, 1.5, 1.5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_oj3tl"]
 material = SubResource("StandardMaterial3D_ryoud")
-size = Vector2(30, 30)
+size = Vector2(10, 10)
 
 [node name="Floor" type="CharacterBody3D"]
 script = ExtResource("1_qn07e")

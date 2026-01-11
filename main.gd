@@ -10,11 +10,12 @@ signal despawn
 @export var speed = -10
 var wall = preload("res://wall.tscn")
 var score_wall = preload("res://score_wall.tscn")
-var floor = preload("res://floor.tscn")
+var floor_wall = preload("res://floor.tscn")
 
 func _ready() -> void:
 	$UserInterface/Replay.hide()
-	$FloorTimer.wait_time = 30 / speed
+	$FloorTimer.wait_time = 10 / abs(speed)
+	$Player/CameraPivot.position = Vector3(-2.5, 0.0, 0.0)
 	
 func _on_player_ded():
 	var replay = $UserInterface/Replay
@@ -82,7 +83,7 @@ func _on_button_pressed() -> void:
 
 
 func _on_floor_timer_timeout() -> void:
-	var floor_chunk = floor.instantiate()
+	var floor_chunk = floor_wall.instantiate()
 	floor_chunk.velocity = Vector3(speed, 0, 0)
 	floor_chunk.global_position = Vector3(50.0, 0.0, 0.0)
 	add_child(floor_chunk) 

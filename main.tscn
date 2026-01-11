@@ -25,6 +25,7 @@ script = ExtResource("1_0xm2m")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+gravity = 0
 
 [node name="LightSource" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-3.779246e-08, 0.5024768, -0.8645907, 2.196396e-08, 0.8645907, 0.5024768, 1, 0, -4.371139e-08, -4.955, 4.9567585, 0)
@@ -145,9 +146,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Despawner"]
 shape = SubResource("BoxShape3D_0xm2m")
 
-[connection signal="ded" from="Player" to="." method="_on_player_ded"]
-[connection signal="ded" from="Player" to="UserInterface/Score/ScoreCounter" method="_on_player_ded"]
-[connection signal="incr" from="Player" to="UserInterface/Score/ScoreCounter" method="_on_player_incr"]
 [connection signal="pressed" from="UserInterface/Replay/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="WallTimer" to="." method="_on_wall_timer_timeout"]
 [connection signal="timeout" from="FloorTimer" to="." method="_on_floor_timer_timeout"]
