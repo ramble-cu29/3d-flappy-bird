@@ -136,6 +136,9 @@ autostart = true
 [node name="WallSpawnLocation" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 6, 0)
 
+[node name="FloorTimer" type="Timer" parent="."]
+autostart = true
+
 [node name="Despawner" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 
@@ -147,4 +150,5 @@ shape = SubResource("BoxShape3D_0xm2m")
 [connection signal="incr" from="Player" to="UserInterface/Score/ScoreCounter" method="_on_player_incr"]
 [connection signal="pressed" from="UserInterface/Replay/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="WallTimer" to="." method="_on_wall_timer_timeout"]
+[connection signal="timeout" from="FloorTimer" to="." method="_on_floor_timer_timeout"]
 [connection signal="body_entered" from="Despawner" to="." method="_on_despawner_body_entered"]

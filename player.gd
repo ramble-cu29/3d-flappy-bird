@@ -8,12 +8,12 @@ signal incr
 @export var speed = 5 # Horizontal speed
 
 var target_velocity = Vector3.ZERO
-var swing_time = 0.2
+var swing_time = 0.1
 var horiz_swing_dist = 0.5
 var vert_swing_dist = 1.0
 
-func tween_animation(tween: Tween, pos: Vector3):
-	tween.tween_property($CameraPivot, "position", pos, swing_time)
+func tween_animation(tween: Tween, pos: Vector3, time: float):
+	tween.tween_property($CameraPivot, "position", pos, time)
 
 func _process(delta):
 	
@@ -21,21 +21,23 @@ func _process(delta):
 	var tween = create_tween()
 	
 	if Input.is_action_pressed("move_left"):
-		if velocity.y < 0:
-			tween_animation(tween, Vector3(-5.0, vert_swing_dist, horiz_swing_dist))
-		elif velocity.y > 0:
-			tween_animation(tween, Vector3(-5.0, -vert_swing_dist, horiz_swing_dist))
-		else:
-			tween_animation(tween, Vector3(-5.0, 0.0, horiz_swing_dist))
+		#if velocity.y < 0:
+		#	tween_animation(tween, Vector3(-5.0, vert_swing_dist, horiz_swing_dist))
+		#elif velocity.y > 0:
+		#	tween_animation(tween, Vector3(-5.0, -vert_swing_dist, horiz_swing_dist))
+		#else:
+		#	tween_animation(tween, Vector3(-5.0, 0.0, horiz_swing_dist))
+		tween_animation(tween, Vector3(-5.0, 0.0, horiz_swing_dist), swing_time)
 	elif Input.is_action_pressed("move_right"):
-		if velocity.y < 0:
-			tween_animation(tween, Vector3(-5.0, vert_swing_dist, -horiz_swing_dist))
-		elif velocity.y > 0:
-			tween_animation(tween, Vector3(-5.0, -vert_swing_dist, -horiz_swing_dist))
-		else:	
-			tween_animation(tween, Vector3(-5.0, 0.0, -horiz_swing_dist))
+		#if velocity.y < 0:
+		#	tween_animation(tween, Vector3(-5.0, vert_swing_dist, -horiz_swing_dist))
+		#elif velocity.y > 0:
+		#	tween_animation(tween, Vector3(-5.0, -vert_swing_dist, -horiz_swing_dist))
+		#else:	
+		#	tween_animation(tween, Vector3(-5.0, 0.0, -horiz_swing_dist))
+		tween_animation(tween, Vector3(-5.0, 0.0, -horiz_swing_dist), swing_time)
 	else:
-		tween_animation(tween, Vector3(-5.0, 0.0, 0.0))
+		tween_animation(tween, Vector3(-5.0, 0.0, 0.0), 0.1)
 	
 	
 func _physics_process(delta):

@@ -14,6 +14,7 @@ var floor = preload("res://floor.tscn")
 
 func _ready() -> void:
 	$UserInterface/Replay.hide()
+	$FloorTimer.wait_time = 30 / speed
 	
 func _on_player_ded():
 	var replay = $UserInterface/Replay
@@ -69,7 +70,7 @@ func _on_button_pressed() -> void:
 	# Reset button:
 	# 1. Remove Replay UI
 	$UserInterface/Replay.hide()
-
+	
 	# 2. Turn player gravity back on
 	$Player.set_physics_process(true)
 
@@ -78,3 +79,13 @@ func _on_button_pressed() -> void:
 	
 	# 4. Set ScoreCounter to 0
 	$UserInterface/Score/ScoreCounter.text = str(0)
+
+
+func _on_floor_timer_timeout() -> void:
+	var floor_chunk = floor.instantiate()
+	floor_chunk.velocity = Vector3(speed, 0, 0)
+	floor_chunk.global_position = Vector3(50.0, 0.0, 0.0)
+	add_child(floor_chunk) 
+	
+	
+	
