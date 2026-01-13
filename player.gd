@@ -11,35 +11,33 @@ var target_velocity = Vector3.ZERO
 var swing_time = 0.1
 var horiz_swing_dist = 1.0
 var vert_swing_dist = 1.0
+var camera_dist = -2.5
+
 
 func _process(delta):
 	
 	var tween = create_tween()
 	
+	var apparent_velocity = Vector3(10.0, velocity.y, velocity.z)
+	var app_vel_norm = apparent_velocity.normalized()
+	print(app_vel_norm)
+	
+	var camera_pos = Vector3(camera_dist*app_vel_norm.x, camera_dist*app_vel_norm.y, camera_dist*app_vel_norm.z)
+	
+	tween.tween_property($CameraPivot, "position", camera_pos, swing_time)
+	$CameraPivot.look_at($Pivot.global_position)
+	
 	# Depending on what key was pressed, edit the tween to swing the camera left or right	
-	if Input.is_action_pressed("move_left"):
-		#if velocity.y < 0:
-		#	tween_animation(tween, Vector3(-5.0, vert_swing_dist, horiz_swing_dist))
-		#elif velocity.y > 0:
-		#	tween_animation(tween, Vector3(-5.0, -vert_swing_dist, horiz_swing_dist))
-		#else:
-		#	tween_animation(tween, Vector3(-5.0, 0.0, horiz_swing_dist))
+	#if Input.is_action_pressed("move_left"):
 		#tween.parallel().tween_property($CameraPivot, "position", Vector3(-3.0, 0.0, horiz_swing_dist), swing_time)
-		tween.tween_property($Pivot, "global_rotation", Vector3(0.0, 45.0, 0.0), 0.1)
+	#	tween.tween_property($Pivot, "global_rotation", Vector3(0.0, 45.0, 0.0), 0.1)
 		
-	elif Input.is_action_pressed("move_right"):
-		
-		#if velocity.y < 0:
-		#	tween_animation(tween, Vector3(-5.0, vert_swing_dist, -horiz_swing_dist))
-		#elif velocity.y > 0:
-		#	tween_animation(tween, Vector3(-5.0, -vert_swing_dist, -horiz_swing_dist))
-		#else:	
-		#	tween_animation(tween, Vector3(-5.0, 0.0, -horiz_swing_dist))
+	#elif Input.is_action_pressed("move_right"):
 		#tween.parallel().tween_property($CameraPivot, "position", Vector3(-3.0, 0.0, -horiz_swing_dist), swing_time)
-		tween.tween_property($Pivot, "global_rotation", Vector3(0.0, -45.0, 0.0), 0.1)
-	else:
+	#	tween.tween_property($Pivot, "global_rotation", Vector3(0.0, -450, 0.0), 0.1)
+	#else:
 		#tween.parallel().tween_property($CameraPivot, "position", Vector3(-3.0, 0.0, 0.0), swing_time)
-		tween.tween_property($Pivot, "global_rotation", Vector3(0.0, 0.0, 0.0), 0.1)
+	#	tween.tween_property($Pivot, "global_rotation", Vector3(0.0, 0.0, 0.0), 0.1)
 	
 func _physics_process(delta):
 	var direction = Vector3.ZERO
