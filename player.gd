@@ -4,7 +4,7 @@ signal ded
 signal incr
 
 @export var gravity = -20
-@export var jump_impulse = 5
+@export var jump_acceleration = 50
 @export var speed = 5 # Horizontal speed
 
 var target_velocity = Vector3.ZERO
@@ -20,6 +20,7 @@ func _process(delta):
 	
 	var apparent_velocity = Vector3(10.0, velocity.y, velocity.z)
 	var app_vel_norm = apparent_velocity.normalized()
+	 
 	print(app_vel_norm)
 	
 	var camera_pos = Vector3(camera_dist*app_vel_norm.x, camera_dist*app_vel_norm.y, camera_dist*app_vel_norm.z)
@@ -57,7 +58,7 @@ func _physics_process(delta):
 		
 	# Jumping
 	if Input.is_action_pressed("jump"):
-		target_velocity.y = jump_impulse
+		target_velocity.y = target_velocity.y + (jump_acceleration * delta)
 		
 	# Moving the Character
 	velocity = target_velocity
