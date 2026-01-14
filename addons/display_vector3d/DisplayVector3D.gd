@@ -194,4 +194,3 @@ func _set_opacity(v: float) -> void:
 	opacity = v
 	if is_instance_valid(_mat):
 		_update_material()
-
