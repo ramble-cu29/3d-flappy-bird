@@ -5,12 +5,11 @@ signal incr
 
 @export var gravity = -20
 @export var jump_acceleration = 100
+@export var side_acceleration = 10
 @export var speed = 5 # Horizontal speed
 
 var target_velocity = Vector3.ZERO
-var swing_time = 1.0
-var horiz_swing_dist = 1.0
-var vert_swing_dist = 1.0
+var swing_time = 0.5
 var camera_dist = -2.5
 
 var start_basis = Basis.IDENTITY  
@@ -27,10 +26,10 @@ func _process(delta):
 
 	#var target_vector = Vector3(app_vel_norm.y, app_vel_norm.x, app_vel_norm.z)
  
-	var target_basis = Basis.looking_at(app_vel_norm, Vector3.UP)
+	var target_basis = Basis.looking_at($Pivot.position + app_vel_norm, Vector3.UP)
 	var camera_pos = Vector3(camera_dist*app_vel_norm.x, camera_dist*app_vel_norm.y, camera_dist*app_vel_norm.z)
 	#print("Camera pos: " + str(camera_pos))
-	tween.tween_method(interpolate.bind($Pivot.basis, target_basis), 0.0, 1.0, 0.01)
+	tween.tween_method(interpolate.bind($Pivot.basis, target_basis), 0.0, 1.0, 0.05)
 	
 	tween.parallel().tween_property($CameraPivot, "global_position", $Pivot.global_position + camera_pos, swing_time)
 	
@@ -49,19 +48,28 @@ func _physics_process(delta):
 		direction.z = 1
 		
 	# Horizontal Velocity
-	target_velocity.z = direction.z * speed
+	target_velocity.z = target_velocity.z + (direction.z * side_acceleration * delta)
 	
-	if target_velocity.y <= 5:
-		# Vertical Velocity
-		if not is_on_floor():
-			target_velocity.y = target_velocity.y + (gravity * delta)
-		
-		# Jumping
-		if Input.is_action_pressed("jump"):
-			target_velocity.y = target_velocity.y + (jump_acceleration * delta)
+	if Input.is_action_pressed("jump"):
+		target_velocity.y = target_velocity.y + (jump_acceleration * delta)
+		if target_velocity.y > 5:
+			target_velocity.y = 5
 	else:
-		target_velocity.y = 5
-			
+		target_velocity.y = target_velocity.y + (gravity * delta)
+	
+	
+	#
+	#if target_velocity.y <= 5:
+		## Vertical Velocity
+		#if not is_on_floor():
+			#target_velocity.y = target_velocity.y + (gravity * delta)
+		#
+		## Jumping
+		#if Input.is_action_pressed("jump"):
+			#target_velocity.y = target_velocity.y + (jump_acceleration * delta)
+	#else:
+		#target_velocity.y = 5
+			#
 	# Moving the Character
 	velocity = target_velocity
 	move_and_slide()
