@@ -22,17 +22,18 @@ func _process(_delta):
 
 	var tween = create_tween()
 	
+	# Generate velocity normal of player	
 	var apparent_velocity = Vector3(10.0, velocity.y, velocity.z)
 	var app_vel_norm = apparent_velocity.normalized()
 
-	#var target_vector = Vector3(app_vel_norm.y, app_vel_norm.x, app_vel_norm.z)
- 
+ 	# Create target vectors for both rotation of player and camera position
 	var target_basis = Basis.looking_at($Pivot.position + app_vel_norm, Vector3.UP)
-	var camera_pos = Vector3(camera_dist*app_vel_norm.x, camera_dist*app_vel_norm.y, camera_dist*app_vel_norm.z)
-	#print("Camera pos: " + str(camera_pos))
-	tween.tween_method(interpolate.bind($Pivot.basis, target_basis), 0.0, 1.0, 0.01)
-	
-	tween.parallel().tween_property($CameraPivot, "global_position", $Pivot.global_position + camera_pos, swing_time)
+	var camera_pos = $Pivot.global_position + Vector3(camera_dist*app_vel_norm.x, camera_dist*app_vel_norm.y, camera_dist*app_vel_norm.z)
+
+	# Tween to the target vectors
+	tween.tween_method(interpolate.bind($Pivot.basis, target_basis), 0.0, 1.0, 0.01)	
+	#tween.parallel().tween_property($CameraPivot, "position", camera_pos.clamp(Vector3(0.0, -10.0, -10.0), Vector3(2.5, 10.0, 10.0)), swing_time)
+	tween.parallel().tween_property($CameraPivot, "global_position", camera_pos, swing_time)
 	
 	$CameraPivot.look_at(global_position)
 	print("Camera pos actual: " + str($CameraPivot.position))
@@ -53,8 +54,6 @@ func _physics_process(delta):
 	# Horizontal Velocity
 	if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 		target_velocity.z = clampf(target_velocity.z + (direction.z * side_acceleration * delta), -side_velocity_limit, side_velocity_limit)
-		#if abs(target_velocity.z) > side_velocity_limit:
-			#target_velocity.z = side_velocity_limit*direction.z
 	else:
 		target_velocity.z = target_velocity.z + (direction.z * 20 * delta)
 		if abs(target_velocity.z) < 0.1:

@@ -110,6 +110,7 @@ shape = SubResource("BoxShape3D_onrkg")
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5, 0, 0)
 
 [node name="Camera" type="Camera3D" parent="CameraPivot"]
+fov = 80.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
