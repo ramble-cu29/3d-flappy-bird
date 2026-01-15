@@ -26,10 +26,10 @@ script = ExtResource("1_0xm2m")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
-gravity = 0
 jump_acceleration = 50
 
 [node name="DisplayVector3D" type="Node3D" parent="Player"]
+visible = false
 script = ExtResource("3_1bvp3")
 metadata/_custom_type_script = "uid://o7mphmhcg5c"
 
