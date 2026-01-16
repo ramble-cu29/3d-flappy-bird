@@ -43,7 +43,7 @@ func _on_player_ded():
 	$Player.global_position = Vector3(0,4,0)
 	$Player.set_velocity(Vector3.ZERO)
 	$Player.set_physics_process(false)
-
+	
 func _on_wall_timer_timeout() -> void:
 	# Add upper and lower walls to scene tree
 	var upper = wall.instantiate()

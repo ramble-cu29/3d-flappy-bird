@@ -12,7 +12,7 @@ var target_velocity = Vector3.ZERO
 var swing_time = 0.5
 var camera_dist = -2.5
 
-var side_velocity_limit = 5
+var side_velocity_limit = 10
 
 
 func interpolate(weight:float, start_basis:Basis, target_basis:Basis):
@@ -27,13 +27,13 @@ func _process(_delta):
 	var app_vel_norm = apparent_velocity.normalized()
 
  	# Create target vectors for both rotation of player and camera position
-	var target_basis = Basis.looking_at($Pivot.position + app_vel_norm, Vector3.UP)
-	var camera_pos = $Pivot.global_position + Vector3(camera_dist*app_vel_norm.x, camera_dist*app_vel_norm.y, camera_dist*app_vel_norm.z)
-
+	#var target_basis = Basis.looking_at($Pivot.position + app_vel_norm, Vector3.UP)
+	var camera_pos = Vector3(camera_dist*app_vel_norm.x, camera_dist*app_vel_norm.y, camera_dist*app_vel_norm.z)
+	var camera_pos_temp = camera_pos
 	# Tween to the target vectors
-	tween.tween_method(interpolate.bind($Pivot.basis, target_basis), 0.0, 1.0, 0.01)	
-	#tween.parallel().tween_property($CameraPivot, "position", camera_pos.clamp(Vector3(0.0, -10.0, -10.0), Vector3(2.5, 10.0, 10.0)), swing_time)
-	tween.parallel().tween_property($CameraPivot, "global_position", camera_pos, swing_time)
+	#tween.tween_method(interpolate.bind($Pivot.basis, target_basis), 0.0, 1.0, 0.01)	
+	#tween.parallel().tween_property($CameraPivot, "global_position", camera_pos.clamp($Pivot.global_position + Vector3(2.5, -5.0, -5.0), $Pivot.global_position + Vector3(2.5, 5.0, 5.0)), swing_time)
+	tween.parallel().tween_property($CameraPivot, "position", camera_pos, swing_time)
 	
 	$CameraPivot.look_at(global_position)
 	print("Camera pos actual: " + str($CameraPivot.position))
@@ -49,34 +49,25 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("move_right"):
 		direction.z = 1
 	else:
+		# When no horizontal direction is being pressed, the acceleration vector points towards 0
 		direction.z = sign(target_velocity.z)*-1
 	
 	# Horizontal Velocity
 	if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+		# Basically, we're doing a velocity calc but clamping it to the limit in either direction.
 		target_velocity.z = clampf(target_velocity.z + (direction.z * side_acceleration * delta), -side_velocity_limit, side_velocity_limit)
 	else:
+		# Accelerating the player towards zero horizontal velocity
 		target_velocity.z = target_velocity.z + (direction.z * 20 * delta)
 		if abs(target_velocity.z) < 0.1:
 			target_velocity.z = 0
 
+	# Vertical velocity
 	if Input.is_action_pressed("jump"):
-		target_velocity.y = clampf(target_velocity.y + (jump_acceleration * delta), 0.0, 7.0)
+		target_velocity.y = clampf(target_velocity.y + (jump_acceleration * delta), -100, 7.0)
 	else:
 		target_velocity.y = target_velocity.y + (gravity * delta)
 	
-	
-	#
-	#if target_velocity.y <= 5:
-		## Vertical Velocity
-		#if not is_on_floor():
-			#target_velocity.y = target_velocity.y + (gravity * delta)
-		#
-		## Jumping
-		#if Input.is_action_pressed("jump"):
-			#target_velocity.y = target_velocity.y + (jump_acceleration * delta)
-	#else:
-		#target_velocity.y = 5
-			#
 	# Moving the Character
 	velocity = target_velocity
 	move_and_slide()
